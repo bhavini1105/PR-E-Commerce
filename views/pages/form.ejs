@@ -1,0 +1,146 @@
+<%- include('../partials/header') %>
+        
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-12 d-flex no-block align-items-center">
+                        <h4 class="page-title">Category Form</h4>
+                        <div class="ml-auto text-right">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="container">
+                                <h2 class="text-center mb-4">Manage Categories</h2>
+                              
+                                <!-- Navigation Buttons as Tabs -->
+                                <ul class="nav nav-pills justify-content-center mb-4" id="categoryTabs" role="tablist">
+                                  <li class="nav-item" role="presentation">
+                                    <a class="nav-link active" id="category-tab" data-bs-toggle="tab" data-bs-target="#category" type="button" role="tab" href="/category">Category</a>
+                                  </li>
+                                  <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="subcategory-tab" data-bs-toggle="tab" data-bs-target="#subcategory" type="button" role="tab" href="/subcategory">Subcategory</a>
+                                  </li>
+                                  <li class="nav-item" role="presentation">
+                                    <a class="nav-link" id="extra-tab" data-bs-toggle="tab" data-bs-target="#extra" type="button" role="tab" href="/extraCategory">Extra Category</a>
+                                  </li>
+                                </ul>
+                              
+                                <!-- Form Tabs -->
+                                <div class="tab-content" id="categoryTabsContent">
+                                  
+                                  <!-- Category Form -->
+                                  <div class="tab-pane fade show active" id="category" role="tabpanel">
+                                    <h4>Add Category</h4>
+                                    <form action="/category" method="post" enctype="multipart/form-data">
+                                      <div class="mb-3">
+                                        <label class="form-label">Category Name</label>
+                                        <input type="text" name="name" class="form-control" placeholder="Enter category name" required>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label class="form-label">Upload Image</label>
+                                        <input type="file" name="image" class="form-control"  required>
+                                      </div>
+                                      <button type="submit" class="btn btn-primary">Save Category</button>
+                                    </form>
+                                  </div>
+                              
+                                  <!-- Subcategory Form -->
+                                  <div class="tab-pane fade" id="subcategory" role="tabpanel">
+                                    <h4>Add Subcategory</h4>
+                                    <form action="/subcategory" method="post">
+                                      <div class="mb-3">
+                                        <label class="form-label">Select Category</label>
+                                        <select class="form-select" name="categoryId" required>
+                                          <option  selected disabled>Choose category</option>
+                                          <% catData.forEach((cat)=>{ %>
+
+                                            <option value="<%= cat.id %>"><%= cat.name %></option>
+                                          <% }) %>
+                                        </select>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label class="form-label">Subcategory Name</label>
+                                        <input type="text" name="name" class="form-control" placeholder="Enter subcategory name" required>
+                                      </div>
+                                      <button type="submit" class="btn btn-success">Save Subcategory</button>
+                                    </form>
+                                  </div>
+                              
+                                  <!-- Extra Category Form -->
+                                  <div class="tab-pane fade" id="extra" role="tabpanel">
+                                    <h4>Add Extra Category</h4>
+                                    <form action="/extraCategory" method="post" enctype="multipart/form-data">
+                                      <div class="mb-3">
+                                        <label class="form-label">Extra Category Name</label>
+                                        <input type="text" class="form-control" name="name" placeholder="Enter extra category name" required>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label class="form-label">Select Category</label>
+                                        <select class="form-select" name="subcatId" required>
+                                          <option  selected disabled>Choose category</option>
+                                          <% subData.forEach((cat)=>{ %>
+                                            <option value="<%= cat.id %>"><%= cat.name %></option>
+                                          <% }) %>
+                                        </select>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label class="form-label">Extra Category Description</label>
+                                        <input type="text" class="form-control" name="description" placeholder="Enter extra category name" required>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label class="form-label">Image</label>
+                                        <input type="file" class="form-control" name="image" placeholder="Enter extra category Image" required>
+                                      </div>
+                                      <div class="mb-3">
+                                        <label class="form-label">Price</label>
+                                        <input type="text" class="form-control" name="price" placeholder="Enter extra category Price" required>
+                                      </div>
+                                      <button type="submit" class="btn btn-warning">Save Extra Category</button>
+                                    </form>
+                                  </div>
+                              
+                                </div>
+                              </div>
+                                
+                        </div>
+                    </div>
+                </div>
+
+                <!-- editor -->
+               
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+
+            <%- include('../partials/footer') %>

@@ -1,0 +1,39 @@
+<%- include("../partials/homeheader") %>
+
+    <div class="container">
+        <div class="row">
+            <% if (extraData.length> 0) { %>
+                <% extraData.forEach(extra=> { %>
+                    <div class="col-md-3 mb-4">
+                        <a href="/extra/view/<%= extra._id %>" class="text-decoration-none text-dark">
+                            <div class="card h-100 shadow-sm">
+                                <img src="/<%= extra.image %>" class="card-img-top" alt="<%= extra.name %>"
+                                    style="height: 200px; object-fit: cover;">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%= extra.name %>
+                                    </h5>
+                                    <p class="card-text">
+                                        <%= extra.description %>
+                                    </p>
+                                    <% if (extra.subcatId && extra.subcatId.name) { %>
+                                        <span class="badge bg-primary">
+                                            <%= extra.subcatId.name %>
+                                        </span>
+                                        <% } %>
+                                </div>
+                                <a href="/extra/view/<%= extra._id %>" class="btn btn-warning ">VIEW</a>
+                            </div>
+                        </a>
+                    </div>
+                    <% }) %>
+                        <% } else { %>
+                            <div class="col-12">
+                                <p class="text-muted">No extra categories found for this subcategory.</p>
+                            </div>
+                            <% } %>
+        </div>
+    </div>
+
+
+    <%- include("../partials/homefooter") %>

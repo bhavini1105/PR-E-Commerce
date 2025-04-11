@@ -1,0 +1,28 @@
+<%- include("../partials/homeheader") %>
+
+    <div class="container mt-5">
+        <div class="card mx-auto shadow"  style="max-width: 600px;">
+            <img src="/<%= extra.image %>" class="card-img-top" alt="<%= extra.name %>">
+            <div class="card-body">
+                <h3 class="card-title">
+                    <%= extra.name %>
+                </h3>
+                <p class="card-text"><strong>Description:</strong>
+                    <%= extra.description %>
+                </p>
+                <p class="card-text"><strong>Price:</strong>
+                    <%= extra.price %>
+                </p>
+                <% if (extra.subcatId) { %>
+                    <p class="card-text"><strong>Subcategory:</strong>
+                        <%= extra.subcatId.name %>
+                    </p>
+                    <% } %>
+                        <a href="/home" class="btn btn-primary mt-3">Back to Home</a>
+                        <a href="/add-to-cart/<%= extra._id %>" class="btn btn-warning mt-3">ADD TO CART</a>
+            </div>
+        </div>
+    </div>
+
+
+    <%- include("../partials/homefooter") %>
