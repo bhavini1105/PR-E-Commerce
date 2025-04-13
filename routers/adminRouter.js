@@ -11,7 +11,7 @@ adminRouter.post('/signup',adminController.signup);
 
 adminRouter.get('/login',adminController.loginPage);
 
-adminRouter.post('/login',passport.authenticate('local',{failureRedirect : '/admin/login', successRedirect: '/admin'}));
+adminRouter.post('/login',passport.authenticate('local',{failureRedirect : '/admin/login', successRedirect: '/admin/admin'}));
 
 adminRouter.get('/forgotpassword',adminController.forgotpasswordPage);
 adminRouter.post('/forgotpassword',adminController.forgotpassword);
@@ -24,6 +24,7 @@ adminRouter.post('/setPassword',changepassword,adminController.setPasswordPage);
 
 adminRouter.use(passport.userAuth);
 adminRouter.get('/admin',adminController.adminPage);
-
+adminRouter.get('/viewdata',adminController.viewData);
+adminRouter.get('/form',adminController.formData);
 
 module.exports = adminRouter;

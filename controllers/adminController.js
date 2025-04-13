@@ -2,6 +2,9 @@ const fs = require('fs');
 const upload = require("../middlewares/uploadImge");
 const adminModel = require("../models/adminModel");
 const nodemailer = require('nodemailer');
+const CatModel = require('../models/categoryModel');
+const ExtraCatModel = require('../models/extraCatModel');
+const SubCatModel = require('../models/subcatModel');
 
 require('dotenv').config();
 
@@ -262,7 +265,7 @@ module.exports.extracategoryPage = (req, res) => {
 module.exports.extracategory = async (req, res) => {
     try {
         console.log(req.body);
-        const { name, subcatId , description } = req.body;
+        const { name, subcatId , description ,price } = req.body;
 
         // Simple check if category is selected
         if (!subcatId) {

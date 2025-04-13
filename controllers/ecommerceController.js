@@ -137,7 +137,7 @@ module.exports.extracategoryPage = (req, res) => {
 module.exports.extracategory = async (req, res) => {
     try {
         console.log(req.body);
-        const { name, subcatId, description } = req.body;
+        const { name, subcatId, description , price } = req.body;
 
         // Simple check if category is selected
         if (!subcatId) {
@@ -181,8 +181,6 @@ module.exports.subcatPage = async (req, res) => {
         let { id } = req.params;
         let catData = await CatModel.find({});
         let subData = await SubCatModel.find({});
-
-
         let extraData = await ExtraCatModel.find({ subcatId: id });
 
         return res.render('pages/subcat', { catData, subData, extraData });
@@ -221,7 +219,6 @@ module.exports.addToCart = (req, res) => {
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
-        // Assuming you have a Product/ExtraCategory model
         ExtraCatModel.findById(productId)
             .then(product => {
                 if (product) {
@@ -256,5 +253,35 @@ module.exports.removeCart = (req, res) => {
         req.session.cart = req.session.cart.filter(item => item._id !== itemId);
     }
 
-    res.redirect('/cart');
+    res.redirect('/home');
 }
+
+module.exports.increaseQty = (req, res) => {
+    let productId = req.params.id;
+    let cart = req.session.cart || [];
+
+    cart = cart.map(item => {
+        if (item._id == productId) {
+            item.quantity += 1;
+        }
+        return item;
+    });
+
+    req.session.cart = cart;
+    res.redirect('/cart');
+};
+
+module.exports.decreaseQty = (req, res) => {
+    let productId = req.params.id;
+    let cart = req.session.cart || [];
+
+    cart = cart.map(item => {
+        if (item._id == productId && item.quantity > 1) {
+            item.quantity -= 1;
+        }
+        return item;
+    });
+
+    req.session.cart = cart;
+    res.redirect('/cart');
+};
