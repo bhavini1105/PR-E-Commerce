@@ -5,12 +5,13 @@ const passport = require("passport");
 
 const adminRouter  = Router();
 
+
 adminRouter.get('/signup',adminController.signupPage);
 adminRouter.post('/signup',adminController.signup);
 
 adminRouter.get('/login',adminController.loginPage);
 
-adminRouter.post('/login',passport.authenticate('local',{failureRedirect : '/admin/login', successRedirect: '/'}));
+adminRouter.post('/login',passport.authenticate('local',{failureRedirect : '/admin/login', successRedirect: '/admin'}));
 
 adminRouter.get('/forgotpassword',adminController.forgotpasswordPage);
 adminRouter.post('/forgotpassword',adminController.forgotpassword);
@@ -22,7 +23,7 @@ adminRouter.get('/setPassword',adminController.setPassword);
 adminRouter.post('/setPassword',changepassword,adminController.setPasswordPage);
 
 adminRouter.use(passport.userAuth);
-adminRouter.get('/',adminController.adminPage);
+adminRouter.get('/admin',adminController.adminPage);
 
 
 module.exports = adminRouter;
