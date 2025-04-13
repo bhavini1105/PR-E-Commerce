@@ -3,10 +3,6 @@ const upload = require("../middlewares/uploadImge");
 const adminModel = require("../models/adminModel");
 const nodemailer = require('nodemailer');
 
-const CatModel = require("../models/categoryModel");
-const ExtraCatModel = require("../models/extraCatModel");
-const SubCatModel = require("../models/subcatModel");
-
 require('dotenv').config();
 
 let gmailpass = process.env.GMAIL_PASS;

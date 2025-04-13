@@ -4,16 +4,16 @@ const ExtraCatModel = require("../models/extraCatModel");
 const SubCatModel = require("../models/subcatModel");
 const fs = require('fs');
 
-module.exports.homePage = async(req, res) => {
+module.exports.homePage = async (req, res) => {
     try {
         let catData = await CatModel.find({});
         let subData = await SubCatModel.find({});
         let extraData = await ExtraCatModel.find({});
 
-        return res.render('pages/homepage',{catData , subData , extraData});
+        return res.render('pages/homepage', { catData, subData, extraData });
     } catch (error) {
         console.log(error.message);
-        return res.render('pages/homepage', { catData :[] , subData:[] , extraData :[]});
+        return res.render('pages/homepage', { catData: [], subData: [], extraData: [] });
     }
 }
 
@@ -22,11 +22,11 @@ module.exports.viewData = async (req, res) => {
     try {
         let catData = await CatModel.find({});
         let subData = await SubCatModel.find({}).populate("categoryId", "name");
-        let extraData = await ExtraCatModel.find({}).populate("subcatId","name");
-        return res.render('pages/viewdata', { catData, subData ,extraData });
+        let extraData = await ExtraCatModel.find({}).populate("subcatId", "name");
+        return res.render('pages/viewdata', { catData, subData, extraData });
     } catch (error) {
         console.log(error.message);
-        return res.render('pages/viewdata', { catData: [] ,subData : [],extraData:[] });
+        return res.render('pages/viewdata', { catData: [], subData: [], extraData: [] });
     }
 }
 
@@ -34,11 +34,11 @@ module.exports.formData = async (req, res) => {
     try {
         let catData = await CatModel.find({});
         let subData = await SubCatModel.find({}).populate("categoryId", "name");
-        let extraData = await ExtraCatModel.find({}).populate("subcatId","name");
-        return res.render('pages/form', { catData , subData , extraData });
+        let extraData = await ExtraCatModel.find({}).populate("subcatId", "name");
+        return res.render('pages/form', { catData, subData, extraData });
     } catch (error) {
         console.log(error.message);
-        return res.render('pages/form', { catData: [] , subData :[] , extraData :[] });
+        return res.render('pages/form', { catData: [], subData: [], extraData: [] });
     }
 }
 
@@ -46,25 +46,25 @@ module.exports.delete = async (req, res) => {
     try {
         let { id } = req.params;
 
-         // Delete the category
-         let deletData = await CatModel.findByIdAndDelete(id);
+        // Delete the category
+        let deletData = await CatModel.findByIdAndDelete(id);
 
-         // Step 1: Get all subcategories of this category
-         let subcategories = await SubCatModel.find({ categoryId: id });
- 
-         // Step 2: Get all subcategory IDs
-         let subcatIds = subcategories.map(sub => sub._id);
- 
-         // Step 3: Delete all extra categories related to those subcategories
-         await ExtraCatModel.deleteMany({ subcatId: { $in: subcatIds } });
- 
-         // Step 4: Delete all subcategories
-         await SubCatModel.deleteMany({ categoryId: id });
- 
-         // Step 5: Delete image file
-         if (deletData?.image && fs.existsSync(deletData.image)) {
-             fs.unlinkSync(deletData.image);
-         }
+        // Step 1: Get all subcategories of this category
+        let subcategories = await SubCatModel.find({ categoryId: id });
+
+        // Step 2: Get all subcategory IDs
+        let subcatIds = subcategories.map(sub => sub._id);
+
+        // Step 3: Delete all extra categories related to those subcategories
+        await ExtraCatModel.deleteMany({ subcatId: { $in: subcatIds } });
+
+        // Step 4: Delete all subcategories
+        await SubCatModel.deleteMany({ categoryId: id });
+
+        // Step 5: Delete image file
+        if (deletData?.image && fs.existsSync(deletData.image)) {
+            fs.unlinkSync(deletData.image);
+        }
 
         return res.redirect('/viewdata')
     } catch (error) {
@@ -121,7 +121,7 @@ module.exports.subcategory = async (req, res) => {
 
         await newSubCat.save();
         // console.log("Sub category created...!");
-        
+
         return res.redirect('/form');
     }
     catch (error) {
@@ -137,7 +137,7 @@ module.exports.extracategoryPage = (req, res) => {
 module.exports.extracategory = async (req, res) => {
     try {
         console.log(req.body);
-        const { name, subcatId , description } = req.body;
+        const { name, subcatId, description } = req.body;
 
         // Simple check if category is selected
         if (!subcatId) {
@@ -178,11 +178,11 @@ module.exports.deleteextra = async (req, res) => {
 
 module.exports.subcatPage = async (req, res) => {
     try {
-        let { id } = req.params; 
+        let { id } = req.params;
         let catData = await CatModel.find({});
         let subData = await SubCatModel.find({});
-        
-        
+
+
         let extraData = await ExtraCatModel.find({ subcatId: id });
 
         return res.render('pages/subcat', { catData, subData, extraData });
@@ -204,7 +204,7 @@ module.exports.viewSingleExtra = async (req, res) => {
             return res.status(404).send("Extra Category not found");
         }
 
-        return res.render('pages/singlepage', { catData , subData ,extraData, extra });
+        return res.render('pages/singlepage', { catData, subData, extraData, extra });
     } catch (error) {
         console.log(error.message);
         return res.status(500).send("Server Error");
@@ -225,7 +225,7 @@ module.exports.addToCart = (req, res) => {
         ExtraCatModel.findById(productId)
             .then(product => {
                 if (product) {
-                    cart.push({ 
+                    cart.push({
                         _id: product._id,
                         name: product.name,
                         price: product.price,

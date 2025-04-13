@@ -7,11 +7,10 @@ const adminRouter = require("./adminRouter");
 
 const indexRouter = Router();
 
-indexRouter.use('/home',ecommerceRouter);
+indexRouter.use('/admin',adminRouter);
+indexRouter.use('/',ecommerceRouter);
 indexRouter.use('/cat',categoryRouter);
 indexRouter.use('/subcat',subCategoryRouter);
 indexRouter.use('/extracat',extraCategoryRouter);
-
-indexRouter.use('/',adminRouter);
 
 module.exports = indexRouter;

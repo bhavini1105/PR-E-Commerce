@@ -57,10 +57,3 @@ module.exports.updatecat= async(req,res)=>{
         return res.status(500).json({message : error.message});
     }
 }
-
-module.exports.login = (req,res)=>{
-    return res.render('pages/login');
-}
-module.exports.signup = (req,res)=>{
-    return res.render('pages/signup');
-}
