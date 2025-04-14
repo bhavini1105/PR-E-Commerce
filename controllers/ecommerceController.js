@@ -137,6 +137,7 @@ module.exports.extracategoryPage = (req, res) => {
 module.exports.extracategory = async (req, res) => {
     try {
         console.log(req.body);
+        
         const { name, subcatId, description , price } = req.body;
 
         // Simple check if category is selected
@@ -179,9 +180,18 @@ module.exports.deleteextra = async (req, res) => {
 module.exports.subcatPage = async (req, res) => {
     try {
         let { id } = req.params;
+
+        // Get all subcategories for this category
+        let subcategories = await SubCatModel.find({ categoryId: id });
+
+        // Get all subcategory IDs
+        let subcatIds = subcategories.map(sub => sub._id);
+
+        // Get all extra categories that belong to these subcategories
+        let extraData = await ExtraCatModel.find({ subcatId: { $in: subcatIds } }).populate("subcatId");
+
         let catData = await CatModel.find({});
         let subData = await SubCatModel.find({});
-        let extraData = await ExtraCatModel.find({ subcatId: id });
 
         return res.render('pages/subcat', { catData, subData, extraData });
     } catch (error) {
@@ -189,6 +199,7 @@ module.exports.subcatPage = async (req, res) => {
         return res.render('pages/subcat', { catData: [], subData: [], extraData: [] });
     }
 }
+
 
 module.exports.viewSingleExtra = async (req, res) => {
     try {
