@@ -1,24 +1,27 @@
 const { Router } = require("express");
-const ecommerceController = require("../controllers/ecommerceController") ;
+const ecommerceController = require("../controllers/ecommerceController");
 const upload = require("../middlewares/uploadImge");
+const SubCatModel = require("../models/subcatModel");
+const CatModel = require("../models/categoryModel");
+const ExtraCatModel = require("../models/extraCatModel");
 
 const ecommerceRouter = Router();
 
-ecommerceRouter.get('/home',ecommerceController.homePage);
-ecommerceRouter.get('/viewdata',ecommerceController.viewData);
-ecommerceRouter.get('/form',ecommerceController.formData);
-ecommerceRouter.get('/delete/:id',ecommerceController.delete);
+ecommerceRouter.get('/home', ecommerceController.homePage);
+ecommerceRouter.get('/viewdata', ecommerceController.viewData);
+ecommerceRouter.get('/form', ecommerceController.formData);
+ecommerceRouter.get('/delete/:id', ecommerceController.delete);
 
-ecommerceRouter.get('/category',ecommerceController.categoryPage);
-ecommerceRouter.post('/category',upload,ecommerceController.category);
+ecommerceRouter.get('/category', ecommerceController.categoryPage);
+ecommerceRouter.post('/category', upload, ecommerceController.category);
 
-ecommerceRouter.get('/subcategory',ecommerceController.subcategoryPage);
-ecommerceRouter.post('/subcategory',ecommerceController.subcategory);
-ecommerceRouter.get('/subcat/delete/:id',ecommerceController.deletesub);
+ecommerceRouter.get('/subcategory', ecommerceController.subcategoryPage);
+ecommerceRouter.post('/subcategory', ecommerceController.subcategory);
+ecommerceRouter.get('/subcat/delete/:id', ecommerceController.deletesub);
 
-ecommerceRouter.get('/extraCategory',ecommerceController.extracategoryPage);
-ecommerceRouter.post('/extraCategory',upload,ecommerceController.extracategory);
-ecommerceRouter.get('/extracat/delete/:id',ecommerceController.deleteextra);
+ecommerceRouter.get('/extraCategory', ecommerceController.extracategoryPage);
+ecommerceRouter.post('/extraCategory', upload, ecommerceController.extracategory);
+ecommerceRouter.get('/extracat/delete/:id', ecommerceController.deleteextra);
 
 ecommerceRouter.get("/subcat/:id",ecommerceController.subcatPage);
 ecommerceRouter.get('/extra/view/:id', ecommerceController.viewSingleExtra);

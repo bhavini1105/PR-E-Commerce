@@ -178,27 +178,18 @@ module.exports.deleteextra = async (req, res) => {
 }
 
 module.exports.subcatPage = async (req, res) => {
-    try {
-        let { id } = req.params;
-
-        // Get all subcategories for this category
-        let subcategories = await SubCatModel.find({ categoryId: id });
-
-        // Get all subcategory IDs
-        let subcatIds = subcategories.map(sub => sub._id);
-
-        // Get all extra categories that belong to these subcategories
-        let extraData = await ExtraCatModel.find({ subcatId: { $in: subcatIds } }).populate("subcatId");
-
-        let catData = await CatModel.find({});
-        let subData = await SubCatModel.find({});
-
-        return res.render('pages/subcat', { catData, subData, extraData });
-    } catch (error) {
-        console.log(error.message);
-        return res.render('pages/subcat', { catData: [], subData: [], extraData: [] });
-    }
+       try {
+           const subCategories = await SubCatModel.find({ categoryId: req.params.id }).populate('categoryId');
+           const catData = await CatModel.find({});
+           const subData = await SubCatModel.find({});
+           let extraData = await ExtraCatModel.find({});
+   
+           res.render('pages/subcat', { subCategories , catData , subData , extraData });
+       } catch (error) {
+           res.status(500).send(error.message);
+       }
 }
+   
 
 
 module.exports.viewSingleExtra = async (req, res) => {
@@ -224,7 +215,6 @@ module.exports.addToCart = (req, res) => {
     const productId = req.params.id;
     const cart = req.session.cart || [];
 
-    // Check if product is already in cart
     const existingItem = cart.find(item => item._id === productId);
 
     if (existingItem) {
