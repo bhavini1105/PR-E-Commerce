@@ -80,6 +80,7 @@ module.exports.forgotpassword = async (req, res) => {
 
         }
         else{
+            
             return res.redirect('/email');
             // return res.json({message : "User not found"});
         }

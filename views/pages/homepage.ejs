@@ -45,5 +45,126 @@
     </div>
 </div>
 
+<!-- Featured Products -->
+<div class="container my-5">
+  <h3 class="mb-4">Top Deals & Offers</h3>
+  <div class="row g-4">
+    <!-- Product 1 -->
+    <div class="col-md-3 h-100">
+      <div class="card product-card shadow-sm">
+        <img src="/image/mobile-28.png" class="card-img-top" alt="Realme 10" />
+        <div class="card-body">
+          <h6 class="card-title">Realme 10 (Sunburst Gold, 128 GB)</h6>
+          <p class="text-danger fw-bold">₹12,499 <span class="text-muted text-decoration-line-through fs-6">₹15,999</span></p>
+          <p class="text-success">20% off</p>
+        </div>
+      </div>
+    </div>
+    <!-- Product 2 -->
+    <div class="col-md-3 h-100">
+      <div class="card product-card shadow-sm">
+        <img src="/image/head.png" class="card-img-top" alt="Boat Headphones" />
+        <div class="card-body">
+          <h6 class="card-title">boAt Rockerz 450</h6>
+          <p class="text-danger fw-bold">₹1,299 <span class="text-muted text-decoration-line-through fs-6">₹2,999</span></p>
+          <p class="text-success">56% off</p>
+        </div>
+      </div>
+    </div>
+    <!-- Product 3 -->
+    <div class="col-md-3 h-100">
+      <div class="card product-card shadow-sm">
+        <img src="/image/grinder.webp" class="card-img-top" alt="Preethi Cooker" />
+        <div class="card-body">
+          <h6 class="card-title">Preethi Zodiac Mixer Grinder</h6>
+          <p class="text-danger fw-bold">₹3,199 <span class="text-muted text-decoration-line-through fs-6">₹4,299</span></p>
+          <p class="text-success">25% off</p>
+        </div>
+      </div>
+    </div>
+    <!-- Product 4 -->
+    <div class="col-md-3 h-100">
+      <div class="card product-card shadow-sm">
+        <img src="/image/monitor.jpg" class="card-img-top" alt="Dell Monitor" />
+        <div class="card-body">
+          <h6 class="card-title">Dell P2422H Monitor</h6>
+          <p class="text-danger fw-bold">₹12,999 <span class="text-muted text-decoration-line-through fs-6">₹15,500</span></p>
+          <p class="text-success">16% off</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="container my-5">
+  <h3>Flash Sale <small class="text-danger" id="countdown"></small></h3>
+  <div class="row g-4">
+    <!-- Repeat product cards here -->
+    <div class="col-md-3">
+      <div class="card">
+        <img src="/image/vivo.jpg" class="card-img-top" alt="Product" />
+        <div class="card-body">
+          <h6>Realme 10</h6>
+          <p class="text-danger fw-bold">₹12,499</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <img src="/image/one.webp" class="card-img-top" alt="Product" />
+        <div class="card-body">
+          <h6>Realme 10</h6>
+          <p class="text-danger fw-bold">₹12,499</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <img src="/image/mobile.png" class="card-img-top" alt="Product" />
+        <div class="card-body">
+          <h6>Realme 10</h6>
+          <p class="text-danger fw-bold">₹12,499</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="card">
+        <img src="/image/smart.jpg" class="card-img-top" alt="Product" />
+        <div class="card-body">
+          <h6>Realme 10</h6>
+          <p class="text-danger fw-bold">₹12,499</p>
+        </div>
+      </div>
+    </div>
+    <!-- Add more -->
+  </div>
+</section>
+
+<script>
+  // Countdown timer for next 1 hour
+  const countdownElement = document.getElementById('countdown');
+  let countdownTime = new Date().getTime() + 3600 * 1000; // 1 hour from now
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    let distance = countdownTime - now;
+
+    if(distance < 0) {
+      countdownElement.textContent = 'Sale Ended';
+      clearInterval(timer);
+      return;
+    }
+
+    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    countdownElement.textContent = `${minutes}m ${seconds}s left`;
+  }
+
+  let timer = setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
+
+
 
 <%- include("../partials/homefooter") %>

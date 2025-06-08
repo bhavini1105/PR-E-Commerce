@@ -46,22 +46,22 @@ module.exports.delete = async (req, res) => {
     try {
         let { id } = req.params;
 
-        // Delete the category
+        
         let deletData = await CatModel.findByIdAndDelete(id);
 
-        // Step 1: Get all subcategories of this category
+        
         let subcategories = await SubCatModel.find({ categoryId: id });
 
-        // Step 2: Get all subcategory IDs
+        
         let subcatIds = subcategories.map(sub => sub._id);
 
-        // Step 3: Delete all extra categories related to those subcategories
+        
         await ExtraCatModel.deleteMany({ subcatId: { $in: subcatIds } });
 
-        // Step 4: Delete all subcategories
+        
         await SubCatModel.deleteMany({ categoryId: id });
 
-        // Step 5: Delete image file
+        
         if (deletData?.image && fs.existsSync(deletData.image)) {
             fs.unlinkSync(deletData.image);
         }
@@ -105,22 +105,21 @@ module.exports.subcategoryPage = async (req, res) => {
 
 module.exports.subcategory = async (req, res) => {
     try {
-        console.log(req.body);
+        
         const { name, categoryId } = req.body;
 
-        // Simple check if category is selected
+        
         if (!categoryId) {
             return res.send("Please select a category before adding a sub-category.");
         }
 
-        // Create new sub-category and link it
+        
         const newSubCat = new SubCatModel({
             name,
             categoryId,
         });
 
         await newSubCat.save();
-        // console.log("Sub category created...!");
 
         return res.redirect('/form');
     }
@@ -136,7 +135,6 @@ module.exports.extracategoryPage = (req, res) => {
 
 module.exports.extracategory = async (req, res) => {
     try {
-        console.log(req.body);
         
         const { name, subcatId, description , price } = req.body;
 
@@ -156,7 +154,6 @@ module.exports.extracategory = async (req, res) => {
         });
 
         await newExtraCat.save();
-        console.log("Sub category created...!");
         return res.redirect('/form');
     }
     catch (error) {
@@ -178,17 +175,24 @@ module.exports.deleteextra = async (req, res) => {
 }
 
 module.exports.subcatPage = async (req, res) => {
-       try {
-           const subCategories = await SubCatModel.find({ categoryId: req.params.id }).populate('categoryId');
-           const catData = await CatModel.find({});
-           const subData = await SubCatModel.find({});
-           let extraData = await ExtraCatModel.find({});
-   
-           res.render('pages/subcat', { subCategories , catData , subData , extraData });
-       } catch (error) {
-           res.status(500).send(error.message);
-       }
-}
+    try {
+        const catData = await CatModel.find({});
+        const subData = await SubCatModel.find({});
+
+        const subCategory = await SubCatModel.findById(req.params.id);
+        if (!subCategory) {
+            return res.status(404).send("Subcategory not found");
+        }
+
+        const subCategories = await ExtraCatModel.find({ subcatId: req.params.id }).populate('subcatId');
+
+        res.render('pages/subcat', { catData, subData, subCategories, subCategory });
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+};
+
+
    
 
 

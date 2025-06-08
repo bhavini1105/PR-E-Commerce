@@ -10,6 +10,30 @@
         integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #2874f0;
+        }
+
+        .search-bar input {
+            border-radius: 2px 0 0 2px;
+            border: 1px solid #ddd;
+            padding: 7px 12px;
+            width: 100%;
+        }
+
+        .search-bar button {
+            border-radius: 0 2px 2px 0;
+            border: 1px solid #2874f0;
+            background-color: #2874f0;
+            color: white;
+        }
+
         .banner {
             background: linear-gradient(135deg, #9526d1, #6a4de3);
             height: 300px;
@@ -57,6 +81,16 @@
         .carousel {
             margin-top: 20px;
         }
+
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 
@@ -70,23 +104,24 @@
             <form class="d-flex mx-auto w-50">
                 <input class="form-control" type="search" placeholder="Search for Products, Brands and More">
             </form>
-            
+
             <div class="d-flex align-items-center gap-3">
                 <a href="/login" class="btn btn-outline-primary d-flex align-items-center gap-1 px-3 py-1">
-                  <i class="fa-solid fa-user"></i>
-                  <span>Login</span>
+                    <i class="fa-solid fa-user"></i>
+                    <span>Login</span>
                 </a>
-                <a href="/cart" class="btn btn-outline-warning d-flex align-items-center gap-1 px-3 py-1 position-relative">
-                  <i class="fa-solid fa-cart-shopping"></i>
-                  <span>Cart</span>
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    <%= cartCount %>
-                  </span>
-                  
-                  </span>
+                <a href="/cart"
+                    class="btn btn-outline-warning d-flex align-items-center gap-1 px-3 py-1 position-relative">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Cart</span>
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        <%= cartCount %>
+                    </span>
+
+                    </span>
                 </a>
-              </div>
-              
+            </div>
+
         </div>
     </nav>
 

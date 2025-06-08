@@ -10,4 +10,5 @@ extraCategoryRouter.get('/allextracat',extraCategoryController.extracategory);
 extraCategoryRouter.delete('/delete/:id',extraCategoryController.deleteextracat);
 extraCategoryRouter.put('/update/:id',upload,extraCategoryController.deleteextracat);
 
+
 module.exports = extraCategoryRouter;
