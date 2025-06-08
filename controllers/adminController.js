@@ -14,6 +14,10 @@ let gmailpass = process.env.GMAIL_PASS;
 module.exports.adminPage = (req, res) => {
     return res.render('index');
 }
+module.exports.indexPage=(req,res)=>{
+    return res.render('index');
+}
+
 
 module.exports.loginPage = (req,res)=>{
     return res.render('pages/login');

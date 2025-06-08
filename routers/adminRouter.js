@@ -24,6 +24,7 @@ adminRouter.post('/setPassword',changepassword,adminController.setPasswordPage);
 
 adminRouter.use(passport.userAuth);
 adminRouter.get('/admin',adminController.adminPage);
+adminRouter.get('/dashboard',adminController.indexPage);
 adminRouter.get('/viewdata',adminController.viewData);
 adminRouter.get('/form',adminController.formData);
 
